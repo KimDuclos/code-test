@@ -41,10 +41,10 @@ let list = [
   [3, 1],
 ];
 
-// ASCENDING BY X FIRST, THEN DESCENDING BY Y WITHIN SAME FUNCTION
+// ASCENDING BY X FIRST, THEN DESCENDING BY Y 
 
 const ascXdescY = (list) => {
-  return list.sort((x, y) => x[1] - y[1] || (x[0] - y[0]));
+  return list.sort((x, y) => (x[0] - y[0]) || y[1] - x[1]);
 
 };
 console.log(
