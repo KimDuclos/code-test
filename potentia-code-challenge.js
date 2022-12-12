@@ -42,38 +42,58 @@ let list = [
 ];
 
 // ASCENDING BY X FIRST, THEN DESCENDING BY Y WITHIN SAME FUNCTION
-const ascXdescY = () => {
-  let sortBothX = list.sort();
-  let sortBothY = sortBothX
-    .sort((x, y) => {
-      return x[1] - y[1];
-    })
-    .reverse();
-  return sortBothY;
+
+const ascXdescY = (list) => {
+  return list.sort((x, y) => x[1] - y[1] || (x[0] - y[0]));
+
 };
 console.log(
-  "Sort ascending by X, then descending by Y (in same function): ",
-  ascXdescY()
+  "Sort ascending by X, then descending by Y",
+  ascXdescY([
+    [6, 6],
+    [1, 2],
+    [1, 3],
+    [3, 5],
+    [5, 3],
+    [0, 1],
+    [2, 5],
+    [4, 1],
+    [2, 5],
+    [2, 1],
+    [3, 1],
+  ])
 );
 
 // ASCENDING BY X + DESCENDING BY Y AT THE SAME TIME (individually sorted and re-combined in resulting orders)
 
-// const sortBoth = (sortXY) => {
-//   let xOnly = list.map((x) => x[0]).sort();
-//   console.log("XONLY: ", xOnly)
-//   let yOnly = list
-//     .map((x) => x[1])
-//     .sort()
-//     .reverse();
-//   for (i = 0; i < xOnly.length; i++) {
-//     sortXY.push([xOnly[i], yOnly[i]]);
-//   }
-//   return sortXY;
-// };
-// console.log(
-//   "X and Y sorted separately, then recombined into pairs.): ",
-//   sortBoth()
-// );
+const sortBoth = (list) => {
+  let sortXY = [];
+  let xOnly = list.map((x) => x[0]).sort();
+  let yOnly = list
+    .map((x) => x[1])
+    .sort()
+    .reverse();
+  for (i = 0; i < xOnly.length; i++) {
+    sortXY.push([xOnly[i], yOnly[i]]);
+  }
+  return sortXY;
+};
+console.log(
+  "X and Y sorted separately, then recombined into pairs.): ",
+  sortBoth([
+    [6, 6],
+    [1, 2],
+    [1, 3],
+    [3, 5],
+    [5, 3],
+    [0, 1],
+    [2, 5],
+    [4, 1],
+    [2, 5],
+    [2, 1],
+    [3, 1],
+  ])
+);
 
 // ### 2. Given a list of objects like
 // ​
@@ -196,7 +216,7 @@ console.log("PROBLEM 3 - B");
 
 const findLast = (string, substring) => {
   return string.toLowerCase().lastIndexOf(substring.toLocaleLowerCase());
-}
+};
 
 console.log(
   "Index of last instance of substring in string: ",
