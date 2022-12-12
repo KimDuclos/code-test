@@ -41,7 +41,6 @@ let list = [
   [3, 1],
 ];
 
-
 // ASCENDING BY X FIRST, THEN DESCENDING BY Y WITHIN SAME FUNCTION
 const ascXdescY = () => {
   let sortBothX = list.sort();
@@ -58,23 +57,23 @@ console.log(
 );
 
 // ASCENDING BY X + DESCENDING BY Y AT THE SAME TIME (individually sorted and re-combined in resulting orders)
-let i = 0;
-let sortXY = [];
-const sortBoth = () => {
-  let xOnly = list.map((x) => x[0]).sort();
-  let yOnly = list
-    .map((x) => x[1])
-    .sort()
-    .reverse();
-  for (i = 0; i < xOnly.length; i++) {
-    sortXY.push([xOnly[i], yOnly[i]]);
-  }
-  return sortXY;
-};
-console.log(
-  "X and Y sorted separately, then recombined into pairs.): ",
-  sortBoth()
-);
+
+// const sortBoth = (sortXY) => {
+//   let xOnly = list.map((x) => x[0]).sort();
+//   console.log("XONLY: ", xOnly)
+//   let yOnly = list
+//     .map((x) => x[1])
+//     .sort()
+//     .reverse();
+//   for (i = 0; i < xOnly.length; i++) {
+//     sortXY.push([xOnly[i], yOnly[i]]);
+//   }
+//   return sortXY;
+// };
+// console.log(
+//   "X and Y sorted separately, then recombined into pairs.): ",
+//   sortBoth()
+// );
 
 // ### 2. Given a list of objects like
 // ​
@@ -96,7 +95,41 @@ console.log(
 
 console.log("PROBLEM 2 - a");
 
-let peopleList = [
+const uniquePeople = (peopleList) => {
+  let unique = [];
+  peopleList.forEach((item) => {
+    let i = unique.findIndex((x) => x.id == item.id);
+    if (i <= -1) {
+      unique.push({ id: item.id, name: item.name });
+    }
+  });
+};
+
+console.log(
+  "Unique by ID - If dupe IDs, first of each ID returned: ",
+  uniquePeople([
+    { name: "George", id: "2" },
+    { name: "Jenni", id: "4" },
+    { name: "Bob", id: "3" },
+    { name: "Mike", id: "2" },
+    { name: "Susan", id: "1" },
+    { name: "Betty", id: "1" },
+    { name: "John", id: "4" },
+    { name: "John", id: "2" },
+  ])
+);
+
+// b. Write a function to remove the first item of a given id and return it
+
+console.log("PROBLEM 1 - b");
+
+const firstItem = (givenID, peopleList) => {
+  remFirst = peopleList.find((item) => item.id == givenID);
+  remFirstList = peopleList.filter((i) => i !== remFirst);
+  return remFirst, remFirstList;
+};
+
+firstItem(2, [
   { name: "George", id: "2" },
   { name: "Jenni", id: "4" },
   { name: "Bob", id: "3" },
@@ -105,29 +138,7 @@ let peopleList = [
   { name: "Betty", id: "1" },
   { name: "John", id: "4" },
   { name: "John", id: "2" },
-];
-
-let unique = [];
-peopleList.forEach((item) => {
-  let i = unique.findIndex(x => x.id == item.id);
-  if(i <= -1){
-    unique.push({id: item.id, name: item.name});
-  }
-});
-console.log(
-  "Unique by ID - If dupe IDs, first of each ID returned: ", unique);
-
-// b. Write a function to remove the first item of a given id and return it
-
-console.log("PROBLEM 1 - b");
-
-const firstItem = (givenID) => {
-  remFirst = peopleList.find((item) => item.id == givenID);
-  remFirstList = peopleList.filter((i) => i !== remFirst);
-  return remFirst, remFirstList;
-};
-
-firstItem(2);
+]);
 
 console.log("Remove and return first item of given ID: ", remFirst);
 console.log("peopleList with firstItem removed: ", remFirstList);
@@ -136,7 +147,7 @@ console.log("peopleList with firstItem removed: ", remFirstList);
 
 console.log("PROBLEM 1 - C");
 
-const lastItem = (givenID) => {
+const lastItem = (givenID, peopleList) => {
   newList = peopleList.filter((item) => item.id == givenID);
   newListLength = newList.length - 1;
   remLast = newList[newListLength];
@@ -144,7 +155,16 @@ const lastItem = (givenID) => {
   return remLast, remLastList;
 };
 
-lastItem(2);
+lastItem(2, [
+  { name: "George", id: "2" },
+  { name: "Jenni", id: "4" },
+  { name: "Bob", id: "3" },
+  { name: "Mike", id: "2" },
+  { name: "Susan", id: "1" },
+  { name: "Betty", id: "1" },
+  { name: "John", id: "4" },
+  { name: "John", id: "2" },
+]);
 
 console.log("Remove and return last item of given ID: ", remLast);
 console.log("peopleList with lastItem removed: ", remLastList);
@@ -162,17 +182,29 @@ const findSub = (string, substring) => {
   return string.toLowerCase().indexOf(substring.toLowerCase());
 };
 
-console.log("Index of first instance of substring: ", findSub("I see a Sea down by the seashore.\nBut which sea do you see down by the seashore?", "sea"));
+console.log(
+  "Index of first instance of substring: ",
+  findSub(
+    "I see a Sea down by the seashore.\nBut which sea do you see down by the seashore?",
+    "sea"
+  )
+);
 
 // b. Write a function to find the index of the last instance of a substring (for example 'sea')
 
 console.log("PROBLEM 3 - B");
 
-function findLast(string, substring) {
+const findLast = (string, substring) => {
   return string.toLowerCase().lastIndexOf(substring.toLocaleLowerCase());
 }
 
-console.log("Index of last instance of substring in string: ", findLast("I see a Sea down by the seashore.\nBut which sea do you see down by the seashore?", "sea"));
+console.log(
+  "Index of last instance of substring in string: ",
+  findLast(
+    "I see a Sea down by the seashore.\nBut which sea do you see down by the seashore?",
+    "sea"
+  )
+);
 
 // ### 4. Given a list of numbers like
 // ​
@@ -201,4 +233,7 @@ let uniqueNumList = (numList) => {
   return [...new Set(numList)];
 };
 
-console.log("List made unigue: ", uniqueNumList([1, 3, 1, 5, 9, 4, 3, 1, 4, 5, 6, 8]));
+console.log(
+  "List made unigue: ",
+  uniqueNumList([1, 3, 1, 5, 9, 4, 3, 1, 4, 5, 6, 8])
+);
