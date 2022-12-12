@@ -120,14 +120,15 @@ let peopleList = [
   { name: "John", id: "2" },
 ];
 
-const uniquePeopleList = () => {
-  return [...new Map(peopleList.map((x) => [x.id, x])).values()];
-};
-
+let unique = [];
+peopleList.forEach(function(item){
+  let i = unique.findIndex(x => x.id == item.id);
+  if(i <= -1){
+    unique.push({id: item.id, name: item.name});
+  }
+});
 console.log(
-  "Unique by ID - If dupe IDs, first of each ID returned: ",
-  uniquePeopleList()
-);
+  "Unique by ID - If dupe IDs, first of each ID returned: ", unique);
 
 // b. Write a function to remove the first item of a given id and return it
 
